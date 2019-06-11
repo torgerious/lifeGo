@@ -1,5 +1,6 @@
 <template>
     <div >
+        <HeaderBar v-if="user" :username="user.username"></HeaderBar>
 
     <transition name="bounce">
         <UnlockAchievementModal 
@@ -10,12 +11,11 @@
         </UnlockAchievementModal>
     </transition>
 
-        <p>Maps</p>
         <GmapMap ef="mapRef"
             :center="userCurrentLocation"
             :zoom="18"
             map-type-id="roadmap"
-            style="width: 100%; height: 100vh"
+            style="width: 100%; height: 90vh"
             :options="{   
                 disableDefaultUi: true,
                 styles:this.MapStyle,
@@ -38,11 +38,14 @@ import { mutationStringAchievements, IAchievements, achievements, actionStringAc
 import { Getter,  Action, Mutation} from "vuex-class";
 import MapExtension from './MapExtenstion.vue';
 import UnlockAchievementModal from '@/components//UnlockAchievementModal.vue';
+import HeaderBar from '@/components//HeaderBar.vue';
+import { actionStringUser, IUser, getterStringUser } from '../store/user';
 
    
 @Component({
   components: {
     UnlockAchievementModal,
+    HeaderBar,
   },
 })
 
@@ -57,9 +60,10 @@ export default class Maps extends MapExtension {
     
     
 
-    @Action(actionStringAchievements.GET_ACHIEVEMENTS) getAchievements:() => Promise<IAchievements[]>;   
+    @Action(actionStringAchievements.GET_ACHIEVEMENTS) getAchievements:() => Promise<IAchievements[]>;
+    @Action(actionStringUser.GET_USER) getUser:() => Promise<IUser>;
     @Getter(getterStringAchievements.ACHIEVEMENTS) achievements:IAchievements[];
-
+    @Getter(getterStringUser.user) user:IUser;
 
     public getLocation():void{
         console.log("Running")
@@ -133,16 +137,10 @@ export default class Maps extends MapExtension {
     }
 
     public created():void{
-
+        this.getUser().then(res => {console.log("res form promise", res)});
         this.getLocation();
         this.getAchievements().then(res => {
-        console.log("achieve?", this.achievements)
-        // this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[0].location.lat, this.achievements[0].location.lng);
-
-
-    
-    // let check = this.$refs.mapRef.el;
-    //      console.log(check, "check");
+         console.log("achieve?", this.achievements)
         });
          
     }

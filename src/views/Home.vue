@@ -2,6 +2,9 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <!-- <div class="baloon-wrapper"> 
+      <div class="baloon" v-for="(n, i) in 280" :key="i"></div>
+    </div> -->
   </div>
 </template>
 
@@ -16,6 +19,8 @@ import  firebase from 'firebase';
   },
 })
 export default class Home extends Vue {
+
+
 
   public created():void{
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -39,3 +44,7 @@ export default class Home extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>
