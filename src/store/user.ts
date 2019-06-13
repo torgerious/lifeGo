@@ -9,7 +9,7 @@ export interface UserState {
 export interface IUser{
     name:string,
     email:string,
-    profileImageUrl:string
+    profileImageUrl:string | null
 }
 
 
@@ -52,9 +52,11 @@ export const actions: ActionTree<UserState, any> = {
                     // console.log("user id found", foundUser)
 
                     if(foundUser.id === userID){
-                    console.log("user id found", foundUser)
-                                                
+
+
+                        let photoURL = localStorage.getItem('photoURL');            
                         user = foundUser;
+                        user.profileImageUrl = photoURL;
 
                         commit(mutationStringUser.SET_USER, user);
                         resolve(user as IUser);

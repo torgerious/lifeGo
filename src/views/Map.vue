@@ -1,6 +1,14 @@
 <template>
-    <div >
-        <HeaderBar v-if="user" :username="user.username"></HeaderBar>
+    <div>
+        <HeaderBar 
+            v-if="user"
+            :username="user.username"
+            :profileImage="user.profileImageUrl">
+        </HeaderBar>
+
+        <RankBar
+            :rank="0">
+        </RankBar>
 
     <transition name="bounce">
         <UnlockAchievementModal 
@@ -11,14 +19,23 @@
         </UnlockAchievementModal>
     </transition>
 
+        <CircleMenu></CircleMenu>
+
         <GmapMap ef="mapRef"
             :center="userCurrentLocation"
             :zoom="18"
             map-type-id="roadmap"
             style="width: 100%; height: 90vh"
+            disableDefaultUI="true"
             :options="{   
                 disableDefaultUi: true,
                 styles:this.MapStyle,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+                 zoomControl: false
             }"
             >
         <div class="marker-span">
@@ -27,6 +44,8 @@
              v-for="(achieve, i) in achievements" :key="i + achieve" :label="achieve.name"  :position="achieve.location" :clickable="true"/>
 
         </div>
+
+
 </GmapMap>
     </div>
 </template>
@@ -40,12 +59,16 @@ import MapExtension from './MapExtenstion.vue';
 import UnlockAchievementModal from '@/components//UnlockAchievementModal.vue';
 import HeaderBar from '@/components//HeaderBar.vue';
 import { actionStringUser, IUser, getterStringUser } from '../store/user';
+import RankBar from '@/components/RankBar.vue';
+import CircleMenu from '../components/CircleMenu.vue';
 
    
 @Component({
   components: {
     UnlockAchievementModal,
     HeaderBar,
+    RankBar,
+    CircleMenu
   },
 })
 

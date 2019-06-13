@@ -28,13 +28,15 @@ export default class Home extends Vue {
     firebase.auth().signInWithPopup(provider).then(function(result) {
     var token = result.credential.idToken;
     var user = result.user.uid;
+    let photoURL = result.user.photoURL;
 
     console.log("result :D ", result);
     console.log("user :D ", user);
     
 
     localStorage.setItem('userId', user);
-    localStorage.setItem('token', token)
+    localStorage.setItem('token', token);
+    localStorage.setItem('photoURL', photoURL);
 }).catch(function(error) {
   console.log("Error", error);
 
