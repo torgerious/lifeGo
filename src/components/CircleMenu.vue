@@ -22,7 +22,7 @@ export default class CircleMenu extends Vue  {
     
     public created():void{
          this.getAchievements().then(res => {
-         console.log("achieve?", this.achievements)
+        //  console.log("achieve?", this.achievements)
         });
     }
 

@@ -55,12 +55,12 @@ export const actions: ActionTree<AchievementState, any> = {
             let location = doc.data().location
             let icon = doc.data().icon
 
-            console.log(achievement);
-            console.log(name);
-            console.log("location from state", location);
+            // console.log(achievement);
+            // console.log(name);
+            // console.log("location from state", location);
 
             let setLocation:Icoordinates = {lat:location.lat, lng:location.lng}
-            console.log("setLocation", setLocation);
+            // console.log("setLocation", setLocation);
 
             achievement = {name: name, points:points, location:setLocation, icon:icon};
             achievementList.push(achievement)            

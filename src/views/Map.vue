@@ -89,10 +89,10 @@ export default class Maps extends MapExtension {
     @Getter(getterStringUser.user) user:IUser;
 
     public getLocation():void{
-        console.log("Getting location");
+        // console.log("Getting location");
         navigator.geolocation.getCurrentPosition(position => {
             this.userCurrentLocation = { lat: position.coords.latitude, lng: position.coords.longitude};
-            console.log("Positiion", this.userCurrentLocation);
+            // console.log("Positiion", this.userCurrentLocation);
         });
     };
 
@@ -117,9 +117,14 @@ export default class Maps extends MapExtension {
         let DistanceInKm:string = (R * c).toFixed(1);
         let distanceInKmAsNumber = parseInt(DistanceInKm);
         console.log("distance in KM", DistanceInKm, "to ", achievements.name);
-
         this.achievementToUnlock = achievements
         this.distanceToNearestAchievement = distanceInKmAsNumber;
+
+         if(distanceInKmAsNumber < 50){
+            this.unlockAchievement = true;
+        }
+
+       
     }
 
     public toRadians(value:number):number {
@@ -128,13 +133,15 @@ export default class Maps extends MapExtension {
 
 
 
-    @Watch('distanceToNearestAchievement')
-    triggerEvent(){
-        if(this.distanceToNearestAchievement !== null && this.distanceToNearestAchievement < 50){
-            this.unlockAchievement = true;
-        }
+    // @Watch('distanceToNearestAchievement')
+    // triggerEvent(){
+    //         console.log("distanceToNearestAchievement", this.distanceToNearestAchievement);
+
+    //     if(this.distanceToNearestAchievement !== null && this.distanceToNearestAchievement < 50){
+    //         this.unlockAchievement = true;
+    //     }
       
-    }
+    // }
 
 
     public mounted():void{
@@ -148,9 +155,12 @@ export default class Maps extends MapExtension {
               //Check distance to achievements
               for(let i = 0; i < this.achievements.length; i++){
                   let name = this.achievements[i].name;
-                  console.log("name in list", name)
-                    this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[i].location.lat, this.achievements[i].location.lng, this.achievements[i]); 
+                   if(this.unlockAchievement === false){
+                        this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[i].location.lat, this.achievements[i].location.lng, this.achievements[i]); 
+                    } 
+              
               }
+             
 
                 // this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[0].location.lat, this.achievements[0].location.lng);                
             },5000);

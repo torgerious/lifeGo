@@ -62,7 +62,7 @@ export const actions: ActionTree<UserState, any> = {
                         resolve(user as IUser);
 
                     }else {
-                        console.log("Meh...")
+                        // console.log("Meh...")
                     }
                 });
                
