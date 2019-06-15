@@ -8,6 +8,7 @@ import { getterStringAchievements, achievements, IAchievements, actionStringAchi
 
 @Component
 export default class CircleMenu extends Vue  {
+    @Prop({default:'./chevron.png'}) rankIconUrl:string;
     
     @Getter(getterStringAchievements.ACHIEVEMENTS) achievements:IAchievements[];
     @Action(actionStringAchievements.GET_ACHIEVEMENTS) getAchievements:() => Promise<IAchievements[]>;
@@ -37,8 +38,13 @@ export default class CircleMenu extends Vue  {
 
         <div class="achievement-list-wrapper" v-if="isShowingList">
             <p>All achievements</p>
-            <div v-for="(achiev, i) in achievements" :key="i + 'achiev' ">
+            <div class="achievement-item" v-for="(achiev, i) in achievements" :key="i + 'achiev' ">
+                <img :src="achiev.icon" alt="achievement icon">
                 <p>{{achiev.name}}</p>
+                <img  :src="rankIconUrl" alt="achievement icon">
+                <p>{{achiev.points}}</p>
+
+
             </div>
         </div>
     </div>
@@ -65,6 +71,7 @@ export default class CircleMenu extends Vue  {
             margin:15px auto;
             display:block;
         }
+      
         &:hover{
             padding:5px;
             transition:0.3s;
@@ -79,5 +86,30 @@ export default class CircleMenu extends Vue  {
         position: absolute;
         z-index: 100;
         background: #FFEB3B;
+        .achievement-item{
+            width: 95%;
+            margin: 5px 2.5%;
+            background: #fff4cd;
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 2px solid #ffc559;
+            img{
+                float: left;
+                height: 40px;
+                &:nth-child(3){
+                    float: right;
+                    height: 50px;
+                    margin-top: -55px;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+            }
+
+        //       .badge{
+        //     float: right;
+        // }
+        }
     }
 </style>

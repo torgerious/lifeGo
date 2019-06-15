@@ -89,7 +89,7 @@ export default class Maps extends MapExtension {
     @Getter(getterStringUser.user) user:IUser;
 
     public getLocation():void{
-        console.log("Running")
+        console.log("Getting location");
         navigator.geolocation.getCurrentPosition(position => {
             this.userCurrentLocation = { lat: position.coords.latitude, lng: position.coords.longitude};
             console.log("Positiion", this.userCurrentLocation);
