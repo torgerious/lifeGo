@@ -6,13 +6,13 @@ import * as firebase from "firebase/app";
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCF_asLPPGKNWCEzBKy8Jn5Mvg61vvm58w",
+  apiKey: "***",
   authDomain: "lifego-feedd.firebaseapp.com",
   databaseURL: "https://lifego-feedd.firebaseio.com",
   projectId: "lifego-feedd",
   storageBucket: "lifego-feedd.appspot.com",
-  messagingSenderId: "90682372158",
-  appId: "1:90682372158:web:541e9ba5caca44da"
+  messagingSenderId: "***",
+  appId: "**"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
