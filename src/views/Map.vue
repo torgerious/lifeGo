@@ -25,7 +25,7 @@
             :center="userCurrentLocation"
             :zoom="18"
             map-type-id="roadmap"
-            style="width: 100%; height: 90vh"
+            style="width: 100%;     height: 75vh;"
             disableDefaultUI="true"
             :options="{   
                 disableDefaultUi: true,
@@ -39,9 +39,12 @@
             }"
             >
         <div class="marker-span">
-            <GmapMarker :label="'Me'" :animation="2" ref="mapRef" :position="userCurrentLocation" :clickable="true" :draggable="true"/>
-            <GmapMarker :icon="achieve.icon"
-             v-for="(achieve, i) in achievements" :key="i + achieve" :label="achieve.name"  :position="achieve.location" :clickable="true"/>
+            <GmapCluster>
+                <GmapMarker :label="'Me'" :animation="2" ref="mapRef" :position="userCurrentLocation" :clickable="true" :draggable="true"/>
+                <GmapMarker :icon="achieve.icon"
+                            v-for="(achieve, i) in achievements" :key="i + achieve" :label="achieve.name"  :position="achieve.location" :clickable="true"/>
+            </GmapCluster>
+
 
         </div>
 
@@ -156,9 +159,9 @@ export default class Maps extends MapExtension {
               for(let i = 0; i < this.achievements.length; i++){
                   let name = this.achievements[i].name;
                    if(this.unlockAchievement === false){
-                        this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[i].location.lat, this.achievements[i].location.lng, this.achievements[i]); 
-                    } 
-              
+                        this.calculateDistance(this.userCurrentLocation.lat, this.userCurrentLocation.lng, this.achievements[i].location.lat, this.achievements[i].location.lng, this.achievements[i]);
+                    }
+
               }
              
 
@@ -183,6 +186,18 @@ export default class Maps extends MapExtension {
 
 
 <style lang="scss">
+
+
+    #app > div > div.vue-map-container > div.vue-map > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div > div > div > div
+    {
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        font-family: Roboto, Arial, sans-serif;
+        background: white;
+        padding: 5px;
+        border-radius: 7px;
+        margin-top: 57px;
+    }
 .marker-span{
     background:red;
     width:20px;
